@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tasks_app_agumentik/UI/splash_screen.dart';
+import 'Style/Theme/theme_class.dart';
+import 'Style/Theme/themes.dart';
+import 'UI/homeScreen.dart';
 
+void main() {
+  runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
+    darkTheme: darkTheme,
+    theme: lightTheme,
+    themeMode: ThemeServices().theme,
+    home: SplashScreen(),
+    getPages: [
+      GetPage(name: '/home', page: () => HomeScreen()),
 
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-
-  runApp(const MyApp());
+    ],
+  ));
 }
-
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-
-      home: SplashScreen(),
-    );
-  }
-}
-

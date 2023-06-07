@@ -5,7 +5,7 @@ class Task {
   final String startTime;
   final String endTime;
   final String repeat;
-  final int isCompleted;
+  final bool isCompleted;
 
   Task({
     required this.id,
@@ -27,5 +27,17 @@ class Task {
       repeat: json['repeat'],
       isCompleted: json['isCompleted'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'date': date,
+      'startTime': startTime,
+      'endTime': endTime,
+      'repeat': repeat,
+      'isCompleted': isCompleted,
+    };
   }
 }
