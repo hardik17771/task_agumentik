@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: EasySplashScreen(
-        logo: Image.asset('assets/image/appicon.jpeg'),
+        logo: Image.network('https://i.pinimg.com/564x/d9/c7/ba/d9c7bab88c6a2fbb78b929081ab20218.jpg'),
         logoWidth: 50,
         backgroundColor: Get.isDarkMode ? Colors.black45 : Colors.white,
         title: Text(

@@ -6,9 +6,11 @@ import 'package:tasks_app_agumentik/models/task_model.dart';
 class TaskController extends GetxController {
   final tasks = <Task>[].obs;
 
-  void setTasks(List<Task> newTasks) {
-    tasks.clear();
-    tasks.addAll(newTasks);
+  void setTasks(dynamic newTasks) {
+    if (newTasks is List) {
+      tasks.clear();
+      tasks.addAll(newTasks.map((task) => Task.fromJson(task)).toList());
+    }
   }
 
   void addTask(Task task) {

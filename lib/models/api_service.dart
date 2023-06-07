@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:tasks_app_agumentik/models/task_model.dart';
 
 class APIService {
-  static const String baseUrl = 'your_api_base_url';
+  static const String baseUrl = 'https://task-backend-o9j8.onrender.com';
 
   static Future<List<Task>> getTasks() async {
     final response = await http.get(Uri.parse('$baseUrl/tasks'));
