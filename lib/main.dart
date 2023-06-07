@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:tasks_app_agumentik/UI/splash_screen.dart';
 
-void main() {
-  runApp(MyApp());
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Task Manager',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen(),
+      debugShowCheckedModeBanner: false,
+
+      home: SplashScreen(),
     );
   }
 }
+
