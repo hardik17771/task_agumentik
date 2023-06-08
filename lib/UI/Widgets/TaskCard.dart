@@ -18,7 +18,7 @@ class TaskCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: getColor(ColorApp.blueAccent as int?), // ColorApp.blueAccent
+          color: Colors.blueAccent, // ColorApp.blueAccent
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -32,7 +32,7 @@ class TaskCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '${task!.title}',
+                      task!.title,
                       style: TextStyle(
                         color: ColorApp.whiteColor,
                         fontSize: 15,
@@ -51,7 +51,7 @@ class TaskCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          '${task!.startTime}',
+                          task!.startTime,
                           style: TextStyle(color: ColorApp.whiteColor),
                         ),
                         Text(
@@ -69,7 +69,7 @@ class TaskCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          '${task!.date}',
+                          task!.date,
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Quicksand',
@@ -129,7 +129,7 @@ class TaskCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: getColor(ColorApp.blueAccent as int?), // ColorApp.blueAccent
+          color: Colors.blueAccent, // ColorApp.blueAccent
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -221,20 +221,4 @@ class TaskCard extends StatelessWidget {
   }
 
 
-
-
-  getColor(int? Color) {
-    switch (Color) {
-      case 0:
-        return Colors.blue;
-      case 1:
-        return Colors.redAccent;
-      case 2:
-        return Colors.orangeAccent;
-      case 3:
-        return Colors.grey;
-      default:
-        return Colors.blue;
-    }
-  }
 }

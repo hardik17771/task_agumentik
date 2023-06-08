@@ -19,19 +19,19 @@ class Task {
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
-      id: json['id'],
-      title: json['title'],
-      date: json['date'],
-      startTime: json['startTime'],
-      endTime: json['endTime'],
-      repeat: json['repeat'],
-      isCompleted: json['isCompleted'],
+      id: json['_id'] ?? '',
+      title: json['title'] ?? '',
+      date: json['date'] ?? '',
+      startTime: json['startTime'] ?? '',
+      endTime: json['endTime'] ?? '',
+      repeat: json['repeat'] ?? '',
+      isCompleted: json['isCompleted'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
+      '_id': id,
       'title': title,
       'date': date,
       'startTime': startTime,

@@ -9,12 +9,19 @@ class APIService {
   static Future<List<Task>> getTasks() async {
     final response = await http.get(Uri.parse('$baseUrl/tasks'));
     if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      return data.map((json) => Task.fromJson(json)).toList();
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final List<dynamic> taskData = responseData['data'];
+      return taskData.map((taskJson) => Task.fromJson(taskJson)).toList();
     } else {
       throw Exception('Failed to load tasks');
     }
   }
+
+
+
+
+
+
 
   static Future<Task> createTask(Task task) async {
     final response = await http.post(

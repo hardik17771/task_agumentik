@@ -7,11 +7,11 @@ class TaskController extends GetxController {
   final tasks = <Task>[].obs;
 
   void setTasks(dynamic newTasks) {
-    if (newTasks is List) {
-      tasks.clear();
-      tasks.addAll(newTasks.map((task) => Task.fromJson(task)).toList());
+    if (newTasks != null && newTasks is List) {
+      tasks.value = newTasks.cast<Task>();
     }
   }
+
 
   void addTask(Task task) {
     tasks.add(task);
