@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tasks_app_agumentik/UI/allTasksScreen.dart';
@@ -6,6 +7,7 @@ import '../models/api_service.dart';
 import '../models/task_controller.dart';
 import '../models/task_model.dart';
 import 'Widgets/TaskCard.dart';
+import 'Widgets/addTaskScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -55,14 +57,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _addTask() async {
-    final result = await Get.to(() => AllTaskScreen());
+    final result = await Get.to(() =>AddTaskScreen());
     if (result != null && result is Task) {
       try {
         final createdTask = await APIService.createTask(result);
         _taskController.addTask(createdTask);
       } catch (e) {
         // Handle error
-        print('Failed to create task: $e');
+        if (kDebugMode) {
+          print('Failed to create task: $e');
+        }
       }
     }
   }
@@ -112,47 +116,54 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               } else {
-                return ListView.builder(
-                  itemCount: _taskController.tasks.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final task = _taskController.tasks[index];
-                    return Dismissible(
-                      key: Key(task.id),
-                      direction: DismissDirection.horizontal,
-                      background: Container(
-                        color: Colors.red,
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
-                          child: Icon(
-                            Icons.delete,
-                            color: Colors.white,
-                          ),
-                        ),
+
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: _taskController.tasks.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final task = _taskController.tasks[index];
+                          return Dismissible(
+                            key: Key(task.id),
+                            direction: DismissDirection.horizontal,
+                            background: Container(
+                              color: Colors.red,
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            secondaryBackground: Container(
+                              color: Colors.green,
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 16.0),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            onDismissed: (direction) {
+                              if (direction == DismissDirection.startToEnd) {
+                                _deleteTask(task);
+                              } else if (direction == DismissDirection.endToStart) {
+                                _updateTask(task);
+                              }
+                            },
+                            child: TaskCard(
+                              task: task, isAllTask: true,
+                            ),
+                          );
+                        },
                       ),
-                      secondaryBackground: Container(
-                        color: Colors.green,
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 16.0),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      onDismissed: (direction) {
-                        if (direction == DismissDirection.startToEnd) {
-                          _deleteTask(task);
-                        } else if (direction == DismissDirection.endToStart) {
-                          _updateTask(task);
-                        }
-                      },
-                      child: TaskCard(
-                        task: task, isAllTask: true,
-                      ),
-                    );
-                  },
+                    ),
+                  ],
                 );
 
               }

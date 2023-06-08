@@ -18,8 +18,9 @@ class TaskController extends GetxController {
   }
 
   void deleteTask(Task task) {
-    tasks.remove(task);
+    tasks.removeWhere((t) => t.id == task.id);
   }
+
 
   void updateTask(Task task) {
     final index = tasks.indexWhere((t) => t.id == task.id);

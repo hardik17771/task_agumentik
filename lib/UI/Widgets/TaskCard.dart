@@ -1,6 +1,11 @@
+import 'package:date_picker_timeline/extra/color.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../Colors and Icons/colors_icons.dart';
+import '../../Style/Icon Broken/icon_broken.dart';
+import '../../models/api_service.dart';
+import '../../models/task_controller.dart';
 import '../../models/task_model.dart';
 
 class TaskCard extends StatelessWidget {
@@ -12,199 +17,107 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isAllTask == true
-        ? Padding(
+    return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.blueAccent, // ColorApp.blueAccent
+          color: isAllTask == true ? Colors.blueAccent : Colors.blue,
           borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      task!.title,
-                      style: TextStyle(
-                        color: ColorApp.whiteColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Quicksand',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          IconAPP.accessTimeRounded,
-                          color: ColorApp.whiteColor,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          task!.startTime,
-                          style: TextStyle(color: ColorApp.whiteColor),
-                        ),
-                        Text(
-                          '- ${task!.endTime}',
-                          style: TextStyle(color: ColorApp.whiteColor),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.date_range,
-                          color: ColorApp.whiteColor,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          task!.date,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Quicksand',
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15),
-
-                    Padding(
-                      padding: const EdgeInsets.only(right: 105.0),
-                      child: Container(
-                        height: 0.5,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'REPEAT: ${task!.repeat}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Quicksand',
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 60,
-              width: 0.5,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
-            RotatedBox(
-              quarterTurns: 3,
-              child: Text(
-                '${task!.isCompleted == 0 ? 'TODO' : 'Completed'}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12,
-                  color: ColorApp.whiteColor,
-                  fontFamily: 'Quicksand',
-                ),
-                textAlign: TextAlign.center,
-              ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 4,
+              offset: Offset(0, 2),
             ),
           ],
         ),
-      ),
-    )
-        : Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.blueAccent, // ColorApp.blueAccent
-          borderRadius: BorderRadius.circular(10),
-        ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      task!.title,
-                      style: TextStyle(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    task!.title,
+                    style: TextStyle(
+                      color: ColorApp.whiteColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Quicksand',
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        IconAPP.accessTimeRounded,
                         color: ColorApp.whiteColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Quicksand',
+                        size: 16,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          IconAPP.accessTimeRounded,
+                      SizedBox(width: 5),
+                      Text(
+                        task!.startTime,
+                        style: TextStyle(
                           color: ColorApp.whiteColor,
+                          fontSize: 14,
+                          fontFamily: 'Quicksand',
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          task!.startTime,
-                          style: TextStyle(color: ColorApp.whiteColor),
-                        ),
-                        Text(
-                          '- ${task!.endTime}',
-                          style: TextStyle(color: ColorApp.whiteColor),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 105.0),
-                      child: Container(
-                        height: 0.5,
-                        color: Colors.white,
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'REPEAT: ${task!.repeat}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Quicksand',
+                      Text(
+                        ' - ${task!.endTime}',
+                        style: TextStyle(
+                          color: ColorApp.whiteColor,
+                          fontSize: 14,
+                          fontFamily: 'Quicksand',
+                        ),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.date_range,
+                        color: ColorApp.whiteColor,
+                        size: 16,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        task!.date,
+                        style: TextStyle(
+                          color: ColorApp.whiteColor,
+                          fontSize: 14,
+                          fontFamily: 'Quicksand',
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    height: 1,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    'REPEAT: ${task!.repeat}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontFamily: 'Quicksand',
                     ),
-
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Container(
-              height: 60,
-              width: 0.5,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: 3,
-            ),
+            SizedBox(width: 16),
             RotatedBox(
               quarterTurns: 3,
               child: Text(
-                '${task!.isCompleted == 0 ? 'TODO' : 'Completed'}',
+                '${task!.isCompleted == false ? 'TODO' : 'Completed'}',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 12,
@@ -219,6 +132,7 @@ class TaskCard extends StatelessWidget {
       ),
     );
   }
-
-
 }
+
+
+

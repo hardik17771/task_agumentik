@@ -131,7 +131,7 @@ class _AllTaskScreenState extends State<AllTaskScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             // RESTful operations based on task properties
-            if (task.isCompleted == 1) ...[
+            if (task.isCompleted == true) ...[
               ListTile(
                 onTap: () {
                   // RESTful operation to update task as not complete
